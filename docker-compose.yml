@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  musicmix:
+    image: musicmix
+    build:
+      context: ./MusicMix
+      dockerfile: Dockerfile
