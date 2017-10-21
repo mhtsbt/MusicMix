@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.0</TargetFramework>
         <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+        <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,6 +18,11 @@
         <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
         <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
         <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\App\Components\" />
+      <Folder Include="wwwroot\App\Services\" />
     </ItemGroup>
 
 </Project>

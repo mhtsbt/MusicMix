@@ -1,3 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+<script src="systemjs.config.js"></script>
+<script>
+        System.import('App').catch(function (err) { console.error(err); });
+</script>
+
+<app></app>

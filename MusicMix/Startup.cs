@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicMix.Data;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace MusicMix
 {
@@ -57,6 +60,26 @@ namespace MusicMix
             }
 
             app.UseStaticFiles();
+
+            Console.WriteLine(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules").ToString());
+
+            if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")))
+            {
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+                    RequestPath = new PathString("/node_modules")
+                });
+            }
+
+            if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), @"Music")))
+            {
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"music")),
+                    RequestPath = new PathString("/music")
+                });
+            }
 
             app.UseMvc(routes =>
             {

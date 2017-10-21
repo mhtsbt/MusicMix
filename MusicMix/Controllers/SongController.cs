@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using MusicMix.Data;
 using MusicMix.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace MusicMix.Controllers
 {
@@ -20,6 +22,21 @@ namespace MusicMix.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Songs.ToListAsync());
+        }
+
+        [Route("api/song")]
+        public async Task<IEnumerable<Song>> GetSongs()
+        {
+            return await _context.Songs.ToListAsync();
+        }
+
+        [Route("/api/nextsong"), HttpPost]
+        public async Task<Song> NextSong([FromBody]List<Song> history)
+        {
+
+            var historyIds = history.Select(x => x.Id);
+
+            return await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
         }
 
         // GET: Song/Details/5

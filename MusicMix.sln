@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMix", "MusicMix\MusicMix.csproj", "{FB67061B-389F-4FC2-AA87-CA99C3AA77BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicMix", "MusicMix\MusicMix.csproj", "{FB67061B-389F-4FC2-AA87-CA99C3AA77BE}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4632FCA3-DE16-4C30-8E0F-9ABBC8DB2787}"
 EndProject
