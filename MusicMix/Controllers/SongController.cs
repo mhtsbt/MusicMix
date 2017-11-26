@@ -20,7 +20,7 @@ namespace MusicMix.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Songs.ToListAsync());
+            return View(await _context.Songs.OrderBy(x => x.Artist).ThenBy(x => x.Title).ToListAsync());
         }
 
         [Route("api/song")]
