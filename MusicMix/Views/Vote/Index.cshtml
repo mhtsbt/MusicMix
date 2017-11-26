@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MusicMix.Models.Song>
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Vote</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width:1%"></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-danger btn-lg" asp-action="Add" asp-route-songId="@item.Id"><i class="fa fa-music"></i>&nbsp;VOTE</a>
+                </td>
+                <td style="font-size:20px;">
+                    @Html.DisplayFor(modelItem => item.Artist)
+                </td>
+                <td style="font-size:20px;">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

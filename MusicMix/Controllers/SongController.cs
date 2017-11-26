@@ -18,7 +18,6 @@ namespace MusicMix.Controllers
             _context = context;
         }
 
-        // GET: Song
         public async Task<IActionResult> Index()
         {
             return View(await _context.Songs.ToListAsync());
@@ -35,11 +34,19 @@ namespace MusicMix.Controllers
         {
 
             var historyIds = history.Select(x => x.Id);
+            Vote highestVotedSong = _context.Votes.Include(x => x.Song).OrderBy(x => x.DateTime).FirstOrDefault(x => !historyIds.Contains(x.SongId));
 
-            return await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
+            if (highestVotedSong != null)
+            {
+                return highestVotedSong.Song;
+            }
+            else
+            {
+                return await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
+            }
+
         }
 
-        // GET: Song/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,15 +64,11 @@ namespace MusicMix.Controllers
             return View(song);
         }
 
-        // GET: Song/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Song/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Artist,FileName,StartTime,StopTime")] Song song)
@@ -79,7 +82,6 @@ namespace MusicMix.Controllers
             return View(song);
         }
 
-        // GET: Song/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,9 +97,6 @@ namespace MusicMix.Controllers
             return View(song);
         }
 
-        // POST: Song/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Artist,FileName,StartTime,StopTime")] Song song)
@@ -130,7 +129,6 @@ namespace MusicMix.Controllers
             return View(song);
         }
 
-        // GET: Song/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,7 +146,6 @@ namespace MusicMix.Controllers
             return View(song);
         }
 
-        // POST: Song/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -163,5 +160,6 @@ namespace MusicMix.Controllers
         {
             return _context.Songs.Any(e => e.Id == id);
         }
+
     }
 }
