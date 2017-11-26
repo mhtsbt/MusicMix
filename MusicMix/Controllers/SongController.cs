@@ -33,17 +33,26 @@ namespace MusicMix.Controllers
         public async Task<Song> NextSong([FromBody]List<Song> history)
         {
 
+            Song outputSong;
+
             var historyIds = history.Select(x => x.Id);
             Vote highestVotedSong = _context.Votes.Include(x => x.Song).OrderBy(x => x.DateTime).FirstOrDefault(x => !historyIds.Contains(x.SongId));
 
             if (highestVotedSong != null)
             {
-                return highestVotedSong.Song;
+                outputSong = highestVotedSong.Song;
             }
             else
             {
-                return await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
+                outputSong = await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
             }
+
+            if (outputSong.StopTime == 0)
+            {
+                outputSong.StopTime = 100;
+            }
+
+            return outputSong;
 
         }
 
