@@ -6,13 +6,39 @@
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 
+<style>
+
+    .history-false {
+        background-color: #a9f8de;
+    }
+
+    .history-true {
+        background-color: #efefef !important;
+        text-decoration: line-through;
+    }
+
+    .voted-false {
+        display: none;
+    }
+
+    .voted-true {
+        display:inline;
+        background-color: #212121;  
+        color:#fff;
+        padding: 7px;
+    }
+</style>
+
 <div class="container-fluid" style="margin-top:15px;font-size:18px;">
     @foreach (var item in Model.OrderBy(x => x.Artist))
     {
-        <div class="col-md-3" onclick="window.location.href='/vote/confirm?songId=@item.Id'">
-            <div style="height:125px;background-color:#a9f8de;padding:10px;margin-bottom:15px;">
+        <div class="col-sm-3" onclick="window.location.href='/vote/confirm?songId=@item.Id'">
+            <div class="history-@item.AlreadyPlayed.ToString().ToLower()" style="height:125px;padding:10px;margin-bottom:15px;">
                 <div>@item.Artist</div>
-                <div><b>@item.Title</b></div>
+                <div style="margin-bottom:10px;"><b>@item.Title</b></div>
+
+                <div class="voted-@item.AlreadyVoted">✓ Al gekozen!</div>
+
             </div>
         </div>
     }

@@ -9,6 +9,7 @@ namespace MusicMix.Data
 
         public DbSet<Song> Songs { get; set; }
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<History> History { get; set; }
 
     }
 }

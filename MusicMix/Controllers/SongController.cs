@@ -34,9 +34,22 @@ namespace MusicMix.Controllers
             return await _context.Songs.ToListAsync();
         }
 
+        public void AddLastSongToHistory(Song lastSong)
+        {
+            _context.History.Add(new History()
+            {
+                SongId = lastSong.Id
+            });
+
+            _context.SaveChanges();
+
+        }
+
         [Route("/api/nextsong"), HttpPost]
         public async Task<Song> NextSong([FromBody]List<Song> history)
         {
+
+            AddLastSongToHistory(history.Last());
 
             Song outputSong;
 
