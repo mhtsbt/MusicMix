@@ -49,11 +49,14 @@ namespace MusicMix.Controllers
         public async Task<Song> NextSong([FromBody]List<Song> history)
         {
 
-            AddLastSongToHistory(history.Last());
+            if (history != null && history.Count > 0)
+            {
+                AddLastSongToHistory(history.Last());
+            }
 
             Song outputSong;
 
-            var historyIds = history.Select(x => x.Id);
+            var historyIds = _context.History.Select(x => x.SongId).ToList();
             Vote highestVotedSong = _context.Votes.Include(x => x.Song).OrderBy(x => x.DateTime).FirstOrDefault(x => !historyIds.Contains(x.SongId));
 
             if (highestVotedSong != null)

@@ -89,7 +89,7 @@ export class PlayerComponent implements OnInit {
 
         this.player.volume = 0;
         ctrl.player.play();
-
+        
         $(this.player).animate({ volume: 1 }, 10000, function () {
             console.log("starting song");
         });
