@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicMix.Data;
+using MusicMix.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +21,32 @@ namespace MusicMix.Controllers
 
         public IActionResult Add(int songId)
         {
-            _context.Votes.Add(new Models.Vote()
+            if (songId != 0)
             {
-                DateTime = DateTime.UtcNow,
-                SongId = songId
-            });
+                _context.Votes.Add(new Models.Vote()
+                {
+                    DateTime = DateTime.UtcNow,
+                    SongId = songId
+                });
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
+
 
             return View("VoteOk");
         }
 
+        public IActionResult Confirm(int songId)
+        {
+
+            Song selectedSong = _context.Songs.FirstOrDefault(x => x.Id == songId);
+
+            return View(selectedSong);
+        }
+
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Songs.Where(x => x.FileName != null).ToListAsync());
         }
 

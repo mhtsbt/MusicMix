@@ -19,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.FileName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                Timing
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StopTime)
+                @Html.DisplayNameFor(model => model.Position)
             </th>
             <th></th>
         </tr>
@@ -41,15 +41,14 @@
                     @Html.DisplayFor(modelItem => item.FileName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
+                    @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.StopTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StopTime)
+                    @Html.DisplayFor(modelItem => item.Position)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-primary btn-xs" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger btn-xs" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

@@ -37,7 +37,6 @@ let PlayerComponent = class PlayerComponent {
                 if (position >= this.song.stopTime && !this.fadeoutActive) {
                     this.fadeOut();
                 }
-                console.log("second" + position);
             }, 500);
         };
         this.player.onpause = () => {

@@ -10,6 +10,7 @@ namespace MusicMix.Models
         public string FileName { get; set; }
         public int StartTime { get; set; }
         public int StopTime { get; set; }
-    
+        public int Position { get; set; }
+
     }
 }

@@ -23,6 +23,11 @@ namespace MusicMix.Controllers
             return View(await _context.Songs.OrderBy(x => x.Artist).ThenBy(x => x.Title).ToListAsync());
         }
 
+        public async Task<IActionResult> IndexSorted()
+        {
+            return View("Index", await _context.Songs.OrderBy(x => x.Position).ToListAsync());
+        }
+
         [Route("api/song")]
         public async Task<IEnumerable<Song>> GetSongs()
         {
@@ -44,7 +49,7 @@ namespace MusicMix.Controllers
             }
             else
             {
-                outputSong = await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync();
+                outputSong = await _context.Songs.Where(x => !historyIds.Contains(x.Id) && x.FileName != null).OrderBy(x => x.Position).Take(1).FirstOrDefaultAsync();
             }
 
             if (outputSong.StopTime == 0)
@@ -88,6 +93,9 @@ namespace MusicMix.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            song.Position = _context.Songs.Count();
+
             return View(song);
         }
 
@@ -108,7 +116,7 @@ namespace MusicMix.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Artist,FileName,StartTime,StopTime")] Song song)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Artist,FileName,StartTime,StopTime,Position")] Song song)
         {
             if (id != song.Id)
             {

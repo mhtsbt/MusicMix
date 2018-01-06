@@ -40,7 +40,6 @@ export class PlayerComponent implements OnInit {
                     this.fadeOut();
                 }
 
-                console.log("second" + position);
             }, 500);
 
         };

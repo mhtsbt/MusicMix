@@ -15,25 +15,5 @@ export class ControlsComponent {
       
     }
 
-   
-
-    //private sleep(ms) {
-    //    return new Promise(resolve => setTimeout(resolve, ms));
-    //}
-
-    //public async mix() {
-
-    //    var source = this.player_a;
-    //    var target = this.player_b;
-
-    //    target.play();
-
-    //    for (var i = 0; i < 100; i++) {
-    //        await this.sleep(50);
-    //        source.volume -= 0.01;
-    //        target.volume += 0.01;
-    //    }
-
-    //}
 
 }
