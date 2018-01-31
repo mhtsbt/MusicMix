@@ -32,6 +32,8 @@ let AppComponent = class AppComponent {
             console.log(this.song_a);
         });
     }
+    skipSong() {
+    }
 };
 AppComponent = __decorate([
     core_1.Component({

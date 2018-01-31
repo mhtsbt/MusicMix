@@ -44,6 +44,11 @@ export class PlayerComponent implements OnInit {
 
         };
 
+        this.player.onended = () => {
+            console.log("song ended");
+            this.fadeOut();
+        };
+
         this.player.onpause = () => {
             window.clearTimeout(timeoutId);
         }
@@ -62,6 +67,11 @@ export class PlayerComponent implements OnInit {
             this.fadeoutActive = false;
         }
 
+    }
+
+    public skipSong() {
+        console.log("skip song");
+        this.fadeOut();
     }
 
     public async fadeOut() {
@@ -89,7 +99,7 @@ export class PlayerComponent implements OnInit {
 
         this.player.volume = 0;
         ctrl.player.play();
-        
+
         $(this.player).animate({ volume: 1 }, 10000, function () {
             console.log("starting song");
         });

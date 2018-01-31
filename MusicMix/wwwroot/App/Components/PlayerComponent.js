@@ -39,6 +39,10 @@ let PlayerComponent = class PlayerComponent {
                 }
             }, 500);
         };
+        this.player.onended = () => {
+            console.log("song ended");
+            this.fadeOut();
+        };
         this.player.onpause = () => {
             window.clearTimeout(timeoutId);
         };
@@ -52,6 +56,10 @@ let PlayerComponent = class PlayerComponent {
             this.player.currentTime = this.song.startTime;
             this.fadeoutActive = false;
         }
+    }
+    skipSong() {
+        console.log("skip song");
+        this.fadeOut();
     }
     fadeOut() {
         return __awaiter(this, void 0, void 0, function* () {

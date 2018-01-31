@@ -1,9 +1,12 @@
 <div>
-   
+
     <h2 *ngIf="song">{{song.title}} - {{song.artist}} (TIME: {{timeLeft}})</h2>
 
     <audio class="audio" controls style="width:800px;">
-        <source *ngIf="song" src="Music/{{song.fileName}}" type="audio/mpeg">
-        Your browser does not support the audio element.
+        <source *ngIf="song" src="Music/{{song.fileName}}" type="audio/mpeg"> Your browser does not support the audio element.
     </audio>
+
+
 </div>
+
+<button (click)="skipSong()">Skip song</button>

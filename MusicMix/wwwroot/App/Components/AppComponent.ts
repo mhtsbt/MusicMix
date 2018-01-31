@@ -36,4 +36,8 @@ export class AppComponent {
 
     }
 
+    public skipSong(): void {
+
+    }
+
 }

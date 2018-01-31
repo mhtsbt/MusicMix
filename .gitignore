@@ -262,3 +262,4 @@ Music
 *.mp3
 node_modules
 lib
+.DS_Store
