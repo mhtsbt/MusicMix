@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using System.IO;
 
 namespace MusicMix.Controllers
 {
@@ -98,6 +99,26 @@ namespace MusicMix.Controllers
         {
             return View();
         }
+        [Route("/export"), HttpGet]
+        public string Export()
+        {
+
+            var orderedSongs = _context.Songs.OrderBy(x => x.Position);
+
+            int i = 0;
+
+            Directory.CreateDirectory("Export");
+
+            foreach (var song in orderedSongs)
+            {
+                string newFileName = i + "_" + song.FileName;
+                System.IO.File.Copy(Path.Combine("Music", song.FileName), Path.Combine("Export", newFileName));
+                i++;
+            }
+
+            return "OK!";
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
